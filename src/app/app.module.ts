@@ -13,6 +13,9 @@ import { EscolaComponent } from './escola/escola.component';
 import { TurmaComponent } from './turma/turma.component';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { EscolaService } from './services/escola.service';
+import { TurmaService } from './services/turma.service';
+import { HttpClientModule } from '@angular/common/http/src/module';
 
 
 
@@ -27,6 +30,7 @@ import { NavigationComponent } from './navigation/navigation.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -35,7 +39,10 @@ import { NavigationComponent } from './navigation/navigation.component';
 
   ],
 
-  providers: [],
+  providers: [
+    EscolaService,
+    TurmaService
+  ],
   bootstrap: [AppComponent]
 })
 

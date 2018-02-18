@@ -1,9 +1,23 @@
-<mat-toolbar color="primary" class="mat-elevation-z8" role="header">
+<mat-toolbar  color="primary" class="mat-elevation-z8" role="header">
   <mat-toolbar-row>
     <span routerLink="" routerLinkActive="active" class="app-icon">Gerenciador de Ensino</span>
 
     <span class="app-spacer"></span>
-    <button mat-button routerLink="/escolas" routerLinkActive="active">Escolas</button>
-    <button mat-button routerLink="/turmas" routerLinkActive="active">Turmas</button>
+    <div *ngIf="!isScreenSmall()">
+      <button mat-button routerLink="/escolas" routerLinkActive="active">Escolas</button>
+      <button mat-button routerLink="/turmas" routerLinkActive="active">Turmas</button>
+    </div>
+    <div *ngIf="isScreenSmall()">
+      <mat-menu #appMenu="matMenu" yPosition="below" xPosition="before" class="app-small-menu" [overlapTrigger]="false">
+          <button mat-menu-item routerLink="/escolas" routerLinkActive="active" color="primary">Escolas</button>
+          <button mat-menu-item routerLink="/turmas" routerLinkActive="active" color="primary">Turmas</button>
+      </mat-menu>
+
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
   </mat-toolbar-row>
 </mat-toolbar>
+

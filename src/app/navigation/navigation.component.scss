@@ -5,3 +5,12 @@
 .app-spacer {
   flex: 1 1 auto;
 }
+
+.app-small-menu{
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.app-small-menu-item{
+  width: 40px;
+}

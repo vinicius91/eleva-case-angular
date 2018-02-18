@@ -8,7 +8,8 @@ import {
           MatCardModule,
           MatDividerModule,
           MatIconModule,
-          MatCheckboxModule
+          MatCheckboxModule,
+          MatMenuModule
 } from '@angular/material';
 
 @NgModule({
@@ -20,7 +21,8 @@ import {
     MatCardModule,
     MatDividerModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
   ],
   exports: [
     MatButtonModule,
@@ -30,7 +32,8 @@ import {
     MatCardModule,
     MatDividerModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
   ],
 })
 

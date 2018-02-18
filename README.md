@@ -1,27 +1,25 @@
-# ElevaCase
+# Eleva Case - Angular5 - Front End
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.0.
+Esse projeto consiste em um case de avaliação para a empresa Eleva Educação.
 
-## Development server
+Esse repositório representa o Front End da Aplicação desenvolvido em Angular.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Requisitos do Projeto
 
-## Code scaffolding
+### Funcionais
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1.	Os dados entrados devem ser validados no cliente e no servidor. 
+2.	No cadastro de uma nova turma, o primeiro passo deve ser a escolha da escola à qual ela pertence.  Ao escolher a escola, o número total de turmas da escola deve ser exibido ao lado do dropdownlist.
+3.	Interface amigável e moderna.
 
-## Build
+### Técnicos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+O Backend foi desenvolvido em .NET/C# com Asp.Net Core 2. O Frontend foi desenvolvido utilizando Angular 5
 
-## Running unit tests
+#### Tecnologias Utilizadas:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Material UI
+* SASS
+* Linq
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
