@@ -1,0 +1,40 @@
+<mat-card>
+    <img mat-card-image src="assets/img/escola.jpg">
+    <mat-card-title>
+        {{ escola.nome }}
+    </mat-card-title>
+
+    <mat-card-content>
+      Nessa área você poderá criar, editar, visualizar e excluir escolas
+    </mat-card-content>
+
+
+  <br>
+<div *ngIf="!loaded">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div *ngIf="loaded">
+    <mat-nav-list>
+        <mat-list-item *ngFor="let turma of turmas">
+          <mat-icon matListIcon>people</mat-icon>
+            <a matLine [routerLink]="['/escolas', escola.id]">{{ turma.nomeCompleto }}</a>
+
+            <button mat-icon-button (click)="openEditDialog(escola.id ,turma.id)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openDeleteDialog(escola.id, turma.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-list-item>
+      </mat-nav-list>
+</div>
+
+
+
+
+  <br>
+
+  <button mat-raised-button (click)="openCreateDialog()">Criar nova Turma</button>
+
+</mat-card>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +15,16 @@ import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { EscolaService } from './services/escola.service';
 import { TurmaService } from './services/turma.service';
-import { HttpClientModule } from '@angular/common/http/src/module';
+import { HttpClientModule } from '@angular/common/http';
+import { EscolaDetalheComponent } from './escola/detalhe/escola-detalhe.component';
+import { TurmaEditComponent } from './turma/edit/turma-edit.component';
+import { TurmaDeleteComponent } from './turma/delete/turma-delete.component';
+import { TurmaCreateComponent } from './turma/create/turma-create.component';
+import { EscolaDeleteComponent } from './escola/delete/escola-delete.component';
+import { EscolaCreateComponent } from './escola/create/escola-create.component';
+import { EscolaEditComponent } from './escola/edit/escola-edit.component';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { ShowOnDirtyErrorStateMatcher } from '@angular/material';
 
 
 
@@ -25,7 +34,14 @@ import { HttpClientModule } from '@angular/common/http/src/module';
     EscolaComponent,
     TurmaComponent,
     HomeComponent,
-    NavigationComponent
+    NavigationComponent,
+    EscolaDetalheComponent,
+    TurmaEditComponent,
+    TurmaDeleteComponent,
+    TurmaCreateComponent,
+    EscolaDeleteComponent,
+    EscolaCreateComponent,
+    EscolaEditComponent
 
   ],
   imports: [
@@ -35,13 +51,24 @@ import { HttpClientModule } from '@angular/common/http/src/module';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule
 
   ],
 
+  entryComponents: [
+    TurmaEditComponent,
+    TurmaDeleteComponent,
+    TurmaCreateComponent,
+    EscolaCreateComponent,
+    EscolaEditComponent,
+    EscolaDeleteComponent
+  ],
+
   providers: [
     EscolaService,
-    TurmaService
+    TurmaService,
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Criar nova Escola</h2>
+
+<mat-dialog-content>
+    <div class="dialog-container">
+      <form class="dialog-form">
+          <mat-form-field class="dialog-full-width">
+              <input matInput placeholder="Nome" [formControl]="anoFormControl" [errorStateMatcher]="matcher" [(ngModel)] ="escola.nome">
+              <mat-hint>Insira um nome para a escola</mat-hint>
+              <mat-error *ngIf="anoFormControl.hasError('required')">
+                  O Nome é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
+        </form>
+    </div>
+</mat-dialog-content>
+
+<br>
+
+<mat-dialog-actions>
+    <button mat-button color="primary" (click)="save()">
+      <mat-icon>save</mat-icon> Salvar
+    </button>
+    <button mat-button color="warn" (click)="dismiss()">
+        <mat-icon>cancel</mat-icon> Cancelar
+      </button>
+  </mat-dialog-actions>

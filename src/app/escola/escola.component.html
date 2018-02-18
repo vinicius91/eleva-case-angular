@@ -5,12 +5,37 @@
     </mat-card-title>
 
     <mat-card-content>
-      Nessa área você poderá criar, editar, visualizar e excluir escolas
+      Escolha a escola que deseja gerenciar.
     </mat-card-content>
 
 
   <br>
 
-  <button mat-raised-button>Criar nova Escola</button>
+  <div *ngIf="!loaded">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <div *ngIf="loaded">
+      <mat-nav-list>
+          <mat-list-item *ngFor="let escola of escolas">
+            <mat-icon matListIcon>school</mat-icon>
+             <a matLine [routerLink]="['/escolas', escola.id]">{{ escola.nome }}</a>
+             <button mat-icon-button (click)="openEditDialog(escola.id)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openDeleteDialog(escola.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-nav-list>
+  </div>
+
+
+
+  <br>
+
+
+  <button mat-raised-button color="primary" (click)="openCreateDialog()">Criar nova Escola</button>
+  <button mat-raised-button color="primary" >Criar nova Turma</button>
 
 </mat-card>

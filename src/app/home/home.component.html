@@ -11,6 +11,13 @@
 
   <br>
 
-  <button mat-raised-button>Vamos Começar!</button>
+  <div class="flex-container">
+
+        <button mat-raised-button color="primary" [routerLink]="['/escolas']" class="flex-item">Nova Escola</button>
+
+
+        <button mat-raised-button color="primary" [routerLink]="['/turmas']" class="flex-item">Nova Turmas</button>
+
+  </div>
 
 </mat-card>

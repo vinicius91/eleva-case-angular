@@ -1,0 +1,14 @@
+<h2 mat-dialog-title color="accent">Deletar Escola</h2>
+
+<mat-dialog-content>
+    <p>Tem certeza que deseja deletar essa escola?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="warn" (click)="save()">
+      <mat-icon>delete</mat-icon> Confirmar
+    </button>
+    <button mat-button color="primary" (click)="dismiss()">
+        <mat-icon>cancel</mat-icon> Cancelar
+      </button>
+  </mat-dialog-actions>

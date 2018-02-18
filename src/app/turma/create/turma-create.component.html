@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Criar nova Turma</h2>
+
+<mat-dialog-content>
+    <div class="dialog-container">
+        <mat-form-field>
+          <input matInput placeholder="Ano" [(ngModel)] ="turma.ano">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Número" [(ngModel)] ="turma.numero">
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <mat-select placeholder="Etapa de Ensino" [(ngModel)] ="turma.etapa">
+            <mat-option value="Ensino Fundamental">Ensino Fundamental</mat-option>
+            <mat-option value="Ensino Médio">Ensino Médio</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="Escola" [(ngModel)] ="turma.escolaId">
+            <mat-option value="Ensino Fundamental">Ensino Fundamental</mat-option>
+            <mat-option value="Ensino Médio">Ensino Médio</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="primary" (click)="save()">
+      <mat-icon>save</mat-icon> Salvar
+    </button>
+    <button mat-button color="warn" (click)="dismiss()">
+        <mat-icon>cancel</mat-icon> Cancelar
+      </button>
+  </mat-dialog-actions>

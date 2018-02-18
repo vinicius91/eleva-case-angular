@@ -1,37 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Escola } from '../models/escola';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
 import { getTestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EscolaService {
 
-  private _escolas: BehaviorSubject<Escola[]>;
 
-  private dataStore: {
-    escolas: Escola[]
-  }
+  private escolasUrl = 'http://localhost:6058/api/escolas';
+
 
   constructor(private http: HttpClient) {
-    this.dataStore = { escolas: []} ;
-    this._escolas = new BehaviorSubject<Escola[]>([]);
    }
 
-  get escolas(): Observable<Escola[]> {
-    return this._escolas.asObservable();
+
+  getAll(): Observable<Escola[]>{
+    return this.http.get<Escola[]>(this.escolasUrl);
   }
 
-  getAll() {
-    const escolasUrl = 'http://localhost:6858/api/escola';
+  getById(escolaId: string): Observable<Escola>{
+    return this.http.get<Escola>(this.escolasUrl + '/' + escolaId);
+  }
 
-    return this.http.get<Escola[]>(escolasUrl)
-    .subscribe(data => {
-      this.dataStore.escolas = data;
-      this._escolas.next(Object.assign({}, this.dataStore.escolas));
-    }, error => {
-      console.log('Falhou na busca das escolas');
-    });
-   }
+
+
 }
