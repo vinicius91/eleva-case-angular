@@ -10,7 +10,7 @@ import { EscolaTurmaCount } from '../models/escolaTurmaCount';
 export class EscolaService {
 
 
-  private escolasUrl = 'http://localhost:6058/api/escolas';
+  private escolasUrl = 'http://elevacaseapi.azurewebsites.net/api/escolas';
 
   private httpOptions = {
     headers: new HttpHeaders({
