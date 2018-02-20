@@ -32,22 +32,24 @@ export class EscolaComponent implements OnInit {
   }
 
   openSnackBar(message: string) {
+    console.log(message);
+
     this.snackBar.open(message, '', {
       duration: 2000,
     });
   }
 
-  handleResult(result) {
-    if (result != null){
+  handleResult(result, action) {
+    if (result != null) {
       this.loaded = false;
       this.setEscolas();
-      this.handleResultResponse(result, 'criada');
+      this.handleResultResponse(result, action);
     }
   }
 
   handleResultResponse(result, action) {
     if (result.success) {
-      this.openSnackBar(`Escola ${result.data.nome} ${action} com sucesso!`);
+      this.openSnackBar(`${result.data.nome} ${action} com sucesso!`);
     } else {
       this.openSnackBar(`Ocorreu algo de errado com a sua solicitação.`);
     }
@@ -64,34 +66,34 @@ export class EscolaComponent implements OnInit {
     });
   }
 
-  openCreateDialog(){
+  openCreateDialog() {
     const createDialogRef = this.dialog.open(EscolaCreateComponent, {
       width: '80%'
     });
 
     createDialogRef.afterClosed().subscribe(result => {
-      this.handleResult(result);
+      this.handleResult(result, 'criada');
     });
   }
 
-  openEditDialog(escolaId){
+  openEditDialog(escolaId) {
     const editDialogRef = this.dialog.open(EscolaEditComponent, {
-      width: '80%'
+      width: '80%',
+      data: {escola: this.escolas.find(e => e.id === escolaId)}
     });
 
     editDialogRef.afterClosed().subscribe(result => {
-      this.handleResult(result);
+      this.handleResult(result, 'editada');
     });
   }
 
-  openDeleteDialog(escolaId){
+  openDeleteDialog(escolaId) {
     const deleteDialogRef = this.dialog.open(EscolaDeleteComponent, {
       width: '80%',
-      data: {escolaId: escolaId}
+      data: {escolaId: escolaId, escola: this.escolas.find(e => e.id === escolaId)}
     });
-
     deleteDialogRef.afterClosed().subscribe(result => {
-      this.handleResult(result);
+      this.handleResult(result, 'deletada');
     });
   }
 

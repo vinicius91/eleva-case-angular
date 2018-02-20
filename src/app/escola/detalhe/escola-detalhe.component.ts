@@ -35,6 +35,15 @@ export class EscolaDetalheComponent implements OnInit {
 
   ) { }
 
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.escolaId = params['escolaId'];
+      this.setEscola(this.escolaId);
+      this.setTurmas(this.escolaId);
+    });
+
+  }
+
   backClicked() {
     this._location.back();
   }
@@ -45,33 +54,33 @@ export class EscolaDetalheComponent implements OnInit {
     });
   }
 
-  handleResult(result) {
-    if (result != null){
+  handleResult(result, action) {
+    if (result != null) {
       this.loaded = false;
       this.setTurmas(this.escolaId);
-      this.handleResultResponse(result, 'criada');
+      this.handleResultResponse(result, action);
     }
   }
 
   handleResultResponse(result, action) {
     if (result.success) {
-      this.openSnackBar(`Turma ${result.data.nome} ${action} com sucesso!`);
+      this.openSnackBar(`${result.data.nomeCompleto} ${action} com sucesso!`);
     } else {
       this.openSnackBar(`Ocorreu algo de errado com a sua solicitação.`);
     }
   }
 
-  openCreateDialog(){
+  openCreateDialog() {
     const createDialogRef = this.dialog.open(TurmaCreateComponent, {
       width: '80%'
     });
 
     createDialogRef.afterClosed().subscribe(result => {
-      this.handleResult(result);
+      this.handleResult(result, 'criada');
     });
   }
 
-  openEditDialog(escolaId, turmaId){
+  openEditDialog(escolaId, turmaId) {
     const editDialogRef = this.dialog.open(TurmaEditComponent, {
       width: '80%',
       data: {
@@ -80,22 +89,23 @@ export class EscolaDetalheComponent implements OnInit {
       }
     });
     editDialogRef.afterClosed().subscribe(result => {
-      this.handleResult(result);
+      this.handleResult(result, 'editada');
     });
   }
 
-  openDeleteDialog(escolaId, turmaId){
+  openDeleteDialog(escolaId, turmaId) {
     const deleteDialogRef = this.dialog.open(TurmaDeleteComponent, {
       width: '80%',
       data: {escolaId: escolaId, turma: this.turmas.find(x => x.id === turmaId)}
     });
 
     deleteDialogRef.afterClosed().subscribe(result => {
-      this.handleResult(result);
+      console.log(result);
+      this.handleResult(result, 'deletada');
     });
   }
 
-  setEscola(escolaId){
+  setEscola(escolaId) {
     this.escolaService.getById(escolaId).subscribe(data => {
       this.escola = data;
     }, err => {
@@ -103,7 +113,7 @@ export class EscolaDetalheComponent implements OnInit {
     });
   }
 
-  setTurmas(escolaId){
+  setTurmas(escolaId) {
     this.turmaService.getAllByEscolaId(escolaId).subscribe(data => {
       this.turmas = data;
       setTimeout(() => {
@@ -114,13 +124,6 @@ export class EscolaDetalheComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.escolaId = params['escolaId'];
-      this.setEscola(this.escolaId);
-      this.setTurmas(this.escolaId);
-    });
 
-  }
 
 }

@@ -22,11 +22,11 @@ export class TurmaService {
 
   constructor(private http: HttpClient) { }
 
-  getAllByEscolaId(escolaId: string): Observable<Turma[]>{
+  getAllByEscolaId(escolaId: string): Observable<Turma[]> {
     return this.http.get<Turma[]>(this.escolasUrl + '/' + escolaId + '/turmas' );
   }
 
-  getByEscolaIdAndTurmaId(escolaId: string, turmaId: string){
+  getByEscolaIdAndTurmaId(escolaId: string, turmaId: string) {
     return this.http.get<Turma>(this.escolasUrl + '/' + escolaId + '/turmas/' + turmaId  );
   }
 

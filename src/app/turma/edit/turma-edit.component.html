@@ -13,6 +13,22 @@
 <mat-dialog-content>
     <div class="dialog-container">
 
+
+      <mat-form-field class="dialog-full-width">
+        <mat-select placeholder="Escola" formControlName="escola">
+            <mat-option *ngFor="let escola of escolas" [value]="escola.id">
+                {{escola.nome}}
+              </mat-option>
+
+        </mat-select>
+        <mat-hint>{{stringTurmas}}</mat-hint>
+        <mat-error *ngIf="escola.invalid && (escola.dirty || escola.touched)">
+          A escola é <strong>obrigatória</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <br>
+
           <mat-form-field class="dialog-full-width">
             <mat-select placeholder="Etapa de Ensino" formControlName="etapa">
               <mat-option value="Ensino Fundamental">Ensino Fundamental</mat-option>
@@ -53,18 +69,7 @@
 
           <br>
 
-          <mat-form-field class="dialog-full-width">
-            <mat-select placeholder="Escola" formControlName="escola">
-                <mat-option *ngFor="let escola of escolas" [value]="escola.id">
-                    {{escola.nome}}
-                  </mat-option>
 
-            </mat-select>
-            <mat-hint>{{stringTurmas}}</mat-hint>
-            <mat-error *ngIf="escola.invalid && (escola.dirty || escola.touched)">
-              A escola é <strong>obrigatória</strong>
-            </mat-error>
-          </mat-form-field>
 
 
       </div>
@@ -75,7 +80,7 @@
       <mat-icon>save</mat-icon> Salvar
     </button>
 
-    <button mat-button color="warn" (click)="dismiss()">
+    <button mat-button color="warn" type="button" (click)="dismiss()">
         <mat-icon>cancel</mat-icon> Cancelar
       </button>
   </mat-dialog-actions>

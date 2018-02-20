@@ -77,8 +77,8 @@ export class TurmaCreateComponent implements OnInit {
     });
   }
 
-  dismiss(){
-    this.dialogRef.close(null)
+  dismiss() {
+    this.dialogRef.close(null);
   }
 
   get ano() {return this.turmaForm.get('ano'); }

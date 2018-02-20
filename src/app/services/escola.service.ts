@@ -23,15 +23,15 @@ export class EscolaService {
    }
 
 
-  getAll(): Observable<Escola[]>{
+  getAll(): Observable<Escola[]> {
     return this.http.get<Escola[]>(this.escolasUrl);
   }
 
-  getById(escolaId: string): Observable<Escola>{
+  getById(escolaId: string): Observable<Escola> {
     return this.http.get<Escola>(this.escolasUrl + '/' + escolaId);
   }
 
-  getAllEscolaTurmaCount(): Observable<EscolaTurmaCount[]>{
+  getAllEscolaTurmaCount(): Observable<EscolaTurmaCount[]> {
     return this.http.get<EscolaTurmaCount[]>(this.escolasUrl + '/turmasCount');
   }
 

@@ -41,7 +41,7 @@ export class EscolaCreateComponent implements OnInit {
     });
   }
 
-  dismiss(){
+  dismiss() {
     this.dialogRef.close(null);
   }
 

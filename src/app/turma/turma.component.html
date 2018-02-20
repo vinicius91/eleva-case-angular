@@ -12,7 +12,7 @@
             </button>
       </div>
       <br>
-      <button mat-raised-button color="primary" >Criar nova Turma</button>
+      <button mat-raised-button (click)="openCreateDialog()" color="primary">Criar nova Turma</button>
       <br>
     </mat-card-content>
 
@@ -26,10 +26,10 @@
         <mat-list>
             <mat-list-item *ngFor="let turma of turmas">
               <h3 matLine> {{turma.nomeCompleto}} </h3>
-              <button mat-icon-button >
-                  <mat-icon>edit</mat-icon>
+              <button mat-icon-button (click)="openEditDialog(turma.escolaId ,turma.id)">
+                <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button >
+              <button mat-icon-button (click)="openDeleteDialog(turma.escolaId, turma.id)">
                   <mat-icon>delete</mat-icon>
               </button>
               <p matLine>

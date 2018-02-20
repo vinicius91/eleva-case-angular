@@ -30,23 +30,10 @@ export class TurmaEditComponent implements OnInit {
               private fb: FormBuilder,
               private escolaService: EscolaService,
               private turmasService: TurmaService
-  )
-    {
+  ) {
     this.turma = data.turma;
-    this.escolaService.getAll().subscribe(data => {
-      this.escolas = data;
-    }, err => {
-      console.log(err);
-    });
-    this.escolaService.getAllEscolaTurmaCount().subscribe(data => {
-      this.numeroTurmas = data;
-      this.alteraStringTurmas(this.turma.escolaId);
-      this.loaded = true;
-
-    }, err => {
-      console.log(err);
-    });
-
+    this.setEscolas();
+    this.setTurmaCount();
     this.turmaForm = this.fb.group({
       ano: ['', [Validators.required, Validators.min(1), Validators.max(9)]],
       numero: ['', [Validators.required]],
@@ -76,12 +63,40 @@ export class TurmaEditComponent implements OnInit {
 
   }
 
-  save(){
-    this.dialogRef.close(this.turma);
+  save() {
+    const turma = new Turma();
+    turma.escolaId = this.turmaForm.value.escola;
+    turma.ano = this.turmaForm.value.ano;
+    turma.numero = this.turmaForm.value.numero;
+    turma.etapa = this.turmaForm.value.etapa;
+    this.turmasService.updateTurma(this.turma.escolaId, this.turma.id, turma).subscribe(data => {
+      this.dialogRef.close({success: true, data: data});
+    }, err => {
+      this.dialogRef.close({success: false, data: null});
+    });
+
   }
 
-  dismiss(){
-    this.dialogRef.close(null)
+  dismiss() {
+    this.dialogRef.close(null);
+  }
+
+  setEscolas() {
+    this.escolaService.getAll().subscribe(escolas => {
+      this.escolas = escolas;
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  setTurmaCount() {
+    this.escolaService.getAllEscolaTurmaCount().subscribe(numeroTurmas => {
+      this.numeroTurmas = numeroTurmas;
+      this.alteraStringTurmas(this.turma.escolaId);
+      this.loaded = true;
+    }, err => {
+      console.log(err);
+    });
   }
 
   get ano() {return this.turmaForm.get('ano'); }
