@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import {Location} from '@angular/common';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -20,9 +21,48 @@ export class EscolaComponent implements OnInit {
   escolas: Escola[] = [];
   loaded = false;
   constructor(
-    private escolaService: EscolaService,
-    private dialog: MatDialog
+    private escolasService: EscolaService,
+    private dialog: MatDialog,
+    private _location: Location,
+    public snackBar: MatSnackBar,
   ) { }
+
+  backClicked() {
+    this._location.back();
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 2000,
+    });
+  }
+
+  handleResult(result) {
+    if (result != null){
+      this.loaded = false;
+      this.setEscolas();
+      this.handleResultResponse(result, 'criada');
+    }
+  }
+
+  handleResultResponse(result, action) {
+    if (result.success) {
+      this.openSnackBar(`Escola ${result.data.nome} ${action} com sucesso!`);
+    } else {
+      this.openSnackBar(`Ocorreu algo de errado com a sua solicitação.`);
+    }
+  }
+
+  setEscolas() {
+    this.escolasService.getAll().subscribe(data => {
+      this.escolas = data;
+      setTimeout(() => {
+        this.loaded = true;
+      }, 300);
+    }, err => {
+      console.log(err);
+    });
+  }
 
   openCreateDialog(){
     const createDialogRef = this.dialog.open(EscolaCreateComponent, {
@@ -30,8 +70,8 @@ export class EscolaComponent implements OnInit {
     });
 
     createDialogRef.afterClosed().subscribe(result => {
-      console.log('This dialog was closed', result);
-    })
+      this.handleResult(result);
+    });
   }
 
   openEditDialog(escolaId){
@@ -40,32 +80,25 @@ export class EscolaComponent implements OnInit {
     });
 
     editDialogRef.afterClosed().subscribe(result => {
-      console.log('This dialog was closed', result);
-    })
+      this.handleResult(result);
+    });
   }
 
   openDeleteDialog(escolaId){
     const deleteDialogRef = this.dialog.open(EscolaDeleteComponent, {
-      width: '80%'
+      width: '80%',
+      data: {escolaId: escolaId}
     });
 
     deleteDialogRef.afterClosed().subscribe(result => {
-      console.log('This dialog was closed', result);
-    })
+      this.handleResult(result);
+    });
   }
 
 
 
   ngOnInit() {
-    this.escolaService.getAll().subscribe(data => {
-      console.log(data);
-      this.escolas = data;
-      setTimeout(() => {
-        this.loaded = true;
-      }, 300);
-    }, err => {
-      console.log(err);
-    });
+    this.setEscolas();
   }
 
 }

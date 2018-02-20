@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Escola } from '../../models/escola';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-escola-edit',
@@ -10,9 +11,14 @@ import { Escola } from '../../models/escola';
 export class EscolaEditComponent implements OnInit {
 
   escola: Escola = new Escola()
-  constructor(private dialogRef: MatDialogRef<EscolaEditComponent>) { }
+  constructor(
+    private dialogRef: MatDialogRef<EscolaEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
   ngOnInit() {
+    console.log('init');
+    console.log(this.data);
   }
 
   save(){

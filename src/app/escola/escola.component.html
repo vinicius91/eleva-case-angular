@@ -2,11 +2,22 @@
     <img mat-card-image src="assets/img/escola.jpg">
     <mat-card-title>
       Escolas
+
     </mat-card-title>
 
     <mat-card-content>
       Escolha a escola que deseja gerenciar.
+      <div class="navCont">
+          <button mat-icon-button class="navCont">
+              <mat-icon (click)="backClicked()">arrow_back</mat-icon>
+            </button>
+      </div>
+      <br>
+      <button mat-raised-button color="primary" (click)="openCreateDialog()">Criar nova Escola</button>
+      <br>
+
     </mat-card-content>
+
 
 
   <br>
@@ -29,13 +40,4 @@
           </mat-list-item>
         </mat-nav-list>
   </div>
-
-
-
-  <br>
-
-
-  <button mat-raised-button color="primary" (click)="openCreateDialog()">Criar nova Escola</button>
-  <button mat-raised-button color="primary" >Criar nova Turma</button>
-
 </mat-card>

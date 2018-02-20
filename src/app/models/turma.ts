@@ -6,5 +6,6 @@ export class Turma {
   numero: number;
   ano: number;
   escolaId: string;
+  escola: string;
 
 }

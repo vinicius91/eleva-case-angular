@@ -1,38 +1,85 @@
-<h2 mat-dialog-title>Editar Turma</h2>
+<h2 mat-dialog-title>Editar {{turma.nomeCompleto}}</h2>
+
+<div *ngIf="!loaded">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<div *ngIf="loaded">
+
+
+
+<form (ngSubmit)="save()" [formGroup]="turmaForm" class="dialog-form">
+
 
 <mat-dialog-content>
     <div class="dialog-container">
-        <mat-form-field>
-          <input matInput placeholder="Ano" [(ngModel)] ="turma.ano">
-        </mat-form-field>
 
-        <mat-form-field>
-          <input matInput placeholder="Número" [(ngModel)] ="turma.numero">
-        </mat-form-field>
+          <mat-form-field class="dialog-full-width">
+            <mat-select placeholder="Etapa de Ensino" formControlName="etapa">
+              <mat-option value="Ensino Fundamental">Ensino Fundamental</mat-option>
+              <mat-option value="Ensino Médio">Ensino Médio</mat-option>
+            </mat-select>
+            <mat-error *ngIf="etapa.invalid && (etapa.dirty || etapa.touched)">
+              A etapa é <strong>obrigatória</strong>
+            </mat-error>
+          </mat-form-field>
 
+          <br>
 
-        <mat-form-field>
-          <mat-select placeholder="Etapa de Ensino" [(ngModel)] ="turma.etapa">
-            <mat-option value="Ensino Fundamental">Ensino Fundamental</mat-option>
-            <mat-option value="Ensino Médio">Ensino Médio</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field class="dialog-full-width">
+            <input matInput  formControlName="ano">
+            <mat-hint>Insira um ano para a turma</mat-hint>
+              <mat-error *ngIf="ano.invalid && (ano.dirty || ano.touched)">
+                <span  *ngIf="ano.errors.required">
+                  O ano é <strong>obrigatório</strong>
+                </span>
+                <span  *ngIf="ano.errors.min">
+                  O valor mínimo para ano é <strong>1</strong>
+                </span>
+                <span  *ngIf="ano.errors.max">
+                  O valor máximo para ano é <strong>9</strong>
+                </span>
+              </mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-select placeholder="Escola" [(ngModel)] ="turma.escolaId">
-            <mat-option value="Ensino Fundamental">Ensino Fundamental</mat-option>
-            <mat-option value="Ensino Médio">Ensino Médio</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <br>
+
+          <mat-form-field class="dialog-full-width" >
+            <input matInput formControlName="numero" type="number" step="1">
+            <mat-hint>Insira um número para a turma</mat-hint>
+              <mat-error *ngIf="numero.invalid && (numero.dirty || numero.touched)">
+                O número é <strong>obrigatório</strong>
+              </mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <mat-form-field class="dialog-full-width">
+            <mat-select placeholder="Escola" formControlName="escola">
+                <mat-option *ngFor="let escola of escolas" [value]="escola.id">
+                    {{escola.nome}}
+                  </mat-option>
+
+            </mat-select>
+            <mat-hint>{{stringTurmas}}</mat-hint>
+            <mat-error *ngIf="escola.invalid && (escola.dirty || escola.touched)">
+              A escola é <strong>obrigatória</strong>
+            </mat-error>
+          </mat-form-field>
+
 
       </div>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-button color="primary" (click)="save()">
+    <button mat-button color="primary" type="submit" [disabled]="!turmaForm.valid || !turmaForm.touched">
       <mat-icon>save</mat-icon> Salvar
     </button>
+
     <button mat-button color="warn" (click)="dismiss()">
         <mat-icon>cancel</mat-icon> Cancelar
       </button>
   </mat-dialog-actions>
+
+</form>
+
+</div>

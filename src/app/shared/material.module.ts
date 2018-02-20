@@ -14,7 +14,8 @@ import {
           MatDialogModule,
           MatProgressBarModule,
           MatFormFieldModule,
-          MatSelectModule
+          MatSelectModule,
+          MatSnackBarModule
 
 } from '@angular/material';
 
@@ -33,7 +34,8 @@ import {
     MatDialogModule,
     MatProgressBarModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -49,7 +51,8 @@ import {
     MatDialogModule,
     MatProgressBarModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
 })
 

@@ -6,6 +6,14 @@
 
     <mat-card-content>
       Nessa área você poderá criar, editar, visualizar e excluir escolas
+      <div class="navCont">
+          <button mat-icon-button class="navCont">
+              <mat-icon (click)="backClicked()">arrow_back</mat-icon>
+            </button>
+      </div>
+      <br>
+    <button mat-raised-button (click)="openCreateDialog()" color="primary">Criar nova Turma</button>
+    <br>
     </mat-card-content>
 
 
@@ -18,7 +26,7 @@
     <mat-nav-list>
         <mat-list-item *ngFor="let turma of turmas">
           <mat-icon matListIcon>people</mat-icon>
-            <a matLine [routerLink]="['/escolas', escola.id]">{{ turma.nomeCompleto }}</a>
+            <h3 matLine >{{ turma.nomeCompleto }}</h3>
 
             <button mat-icon-button (click)="openEditDialog(escola.id ,turma.id)">
                 <mat-icon>edit</mat-icon>
@@ -33,8 +41,6 @@
 
 
 
-  <br>
 
-  <button mat-raised-button (click)="openCreateDialog()">Criar nova Turma</button>
 
 </mat-card>

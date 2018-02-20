@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { Escola } from '../../models/escola';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { Observable } from 'rxjs/Observable';
+
+import { Escola } from '../../models/escola';
+import { EscolaService } from '../../services/escola.service';
+
 
 
 @Component({
@@ -19,21 +16,36 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class EscolaCreateComponent implements OnInit {
 
-  anoFormControl = new FormControl('', [
-    Validators.required
-  ]);
+
   escola: Escola = new Escola();
-  matcher = new MyErrorStateMatcher();
-  constructor(private dialogRef: MatDialogRef<EscolaCreateComponent>) { }
+  escolaForm: FormGroup;
+
+  constructor(
+    private dialogRef: MatDialogRef<EscolaCreateComponent>,
+    private fb: FormBuilder,
+    private escolasService: EscolaService,
+  ) {}
 
   ngOnInit() {
+    this.escolaForm = this.fb.group({
+      nome: ['', [Validators.required]]
+    });
   }
 
-  save(){
-    this.dialogRef.close(this.escola);
+  save() {
+    this.escola.nome = this.escolaForm.value.nome;
+    this.escolasService.addEscola(this.escola).subscribe(data => {
+      this.dialogRef.close({success: true, data: data});
+    }, err => {
+      this.dialogRef.close({success: false, data: null});
+    });
   }
 
   dismiss(){
-    this.dialogRef.close(null)
+    this.dialogRef.close(null);
   }
+
+  get nome() {return this.escolaForm.get('nome'); }
+
+
 }

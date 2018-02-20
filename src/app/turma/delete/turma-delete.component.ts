@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Turma } from '../../models/turma';
+import { TurmaService } from '../../services/turma.service';
 
 @Component({
   selector: 'app-turma-delete',
@@ -10,13 +11,25 @@ import { Turma } from '../../models/turma';
 export class TurmaDeleteComponent implements OnInit {
 
   turma: Turma = new Turma();
-  constructor(private dialogRef: MatDialogRef<TurmaDeleteComponent>) { }
+  escolaId = '';
+  constructor(
+    private dialogRef: MatDialogRef<TurmaDeleteComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private turmasService: TurmaService
+  ) {
+    this.turma = data.turma;
+    this.escolaId = data.escolaId;
+  }
 
   ngOnInit() {
   }
 
-  save(){
-    this.dialogRef.close(this.turma);
+  save() {
+    this.turmasService.deleteTurma(this.escolaId, this.turma.id).subscribe(data => {
+      this.dialogRef.close({success: true, data: this.turma});
+    }, err => {
+      this.dialogRef.close({success: false, data: null});
+    });
   }
 
   dismiss(){

@@ -6,11 +6,47 @@
 
     <mat-card-content>
       Nessa área você poderá criar, editar, visualizar e excluir turmas
+      <div class="navCont">
+          <button mat-icon-button class="navCont">
+              <mat-icon (click)="backClicked()">arrow_back</mat-icon>
+            </button>
+      </div>
+      <br>
+      <button mat-raised-button color="primary" >Criar nova Turma</button>
+      <br>
     </mat-card-content>
+
+
+
+    <div *ngIf="!loaded">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <div *ngIf="loaded">
+        <mat-list>
+            <mat-list-item *ngFor="let turma of turmas">
+              <h3 matLine> {{turma.nomeCompleto}} </h3>
+              <button mat-icon-button >
+                  <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button >
+                  <mat-icon>delete</mat-icon>
+              </button>
+              <p matLine>
+                <span> {{turma.escola}} </span>
+              </p>
+            </mat-list-item>
+          </mat-list>
+    </div>
+
+
+
+
+
 
 
   <br>
 
-  <button mat-raised-button>Criar nova Turma</button>
+
 
 </mat-card>
