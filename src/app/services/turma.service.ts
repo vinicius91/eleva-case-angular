@@ -11,7 +11,7 @@ import { Turma } from '../models/turma';
 @Injectable()
 export class TurmaService {
 
-  private escolasUrl = 'http://elevacaseapi.azurewebsites.net/api/escolas';
+  private escolasUrl = 'https://elevacaseapi.azurewebsites.net/api/escolas';
 
   private httpOptions = {
     headers: new HttpHeaders({
